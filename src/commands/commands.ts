@@ -32,8 +32,8 @@ function getSelectedText(): Promise<any> {
         const openai = new OpenAIApi(configuration);
         const response = await openai.createCompletion({
           model: "text-davinci-003",
-          prompt: "Take the following text and turn it into a professional business mail: " + asyncResult.value,
-          temperature: 0,
+          prompt: "Turn the following text into a professional business mail: " + asyncResult.value,
+          temperature: 0.7,
           max_tokens: 300,
         });
 
