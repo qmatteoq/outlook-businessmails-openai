@@ -1,7 +1,7 @@
 import * as React from "react";
 import { DefaultButton } from "@fluentui/react";
 import Progress from "./Progress";
-import { Configuration, OpenAIApi } from "openai";
+// import { Configuration, OpenAIApi } from "openai";
 
 /* global require */
 
@@ -31,19 +31,34 @@ export default class App extends React.Component<AppProps, AppState> {
   generateText = async () => {
     // eslint-disable-next-line no-undef
     var current = this;
-    const configuration = new Configuration({
-      apiKey: "your-api-key",
-    });
-    const openai = new OpenAIApi(configuration);
+
+    const apiKey = "your-api-key";
+    const endpoint = "your-url";
+    const prompt = "Turn the following text into a professional business mail: " + this.state.startText;
+    const deploymentName = "your-deployment-name";
+
+    const url = endpoint + "openai/deployments/" + deploymentName + "/completions?api-version=2022-12-01";
+
+    const payload = {
+      prompt: prompt,
+      max_tokens: 1000,
+    };
+
     current.setState({ isLoading: true });
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: "Turn the following text into a professional business mail: " + this.state.startText,
-      temperature: 0.7,
-      max_tokens: 300,
+
+    // eslint-disable-next-line no-undef
+    var response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "api-key": apiKey,
+      },
+      body: JSON.stringify(payload),
     });
+
+    var data = await response.json();
     current.setState({ isLoading: false });
-    current.setState({ generatedText: response.data.choices[0].text });
+    current.setState({ generatedText: data.choices[0].text });
   };
 
   insertIntoMail = () => {
