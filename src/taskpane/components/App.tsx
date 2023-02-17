@@ -32,33 +32,23 @@ export default class App extends React.Component<AppProps, AppState> {
     // eslint-disable-next-line no-undef
     var current = this;
 
-    const apiKey = "your-api-key";
-    const endpoint = "your-url";
+    const apiKey = "5X5l_tzKawUtPkD7MuK-Mw-qW0r6aQdR6okgQWi0NOnLAzFuGzrtbA==";
+    const endpoint = "https://openaibusinessgeneratorfunction.azurewebsites.net/";
     const prompt = "Turn the following text into a professional business mail: " + this.state.startText;
-    const deploymentName = "your-deployment-name";
 
-    const url = endpoint + "openai/deployments/" + deploymentName + "/completions?api-version=2022-12-01";
-
-    const payload = {
-      prompt: prompt,
-      max_tokens: 1000,
-    };
+    const url = endpoint + "api/AzureOpenAiEndpoint?code=" + apiKey;
 
     current.setState({ isLoading: true });
 
     // eslint-disable-next-line no-undef
     var response = await fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "api-key": apiKey,
-      },
-      body: JSON.stringify(payload),
+      body: prompt,
     });
 
-    var data = await response.json();
+    var data = await response.text();
     current.setState({ isLoading: false });
-    current.setState({ generatedText: data.choices[0].text });
+    current.setState({ generatedText: data });
   };
 
   insertIntoMail = () => {
