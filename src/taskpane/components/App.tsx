@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import * as React from "react";
 import { DefaultButton } from "@fluentui/react";
 import Progress from "./Progress";
@@ -32,18 +33,22 @@ export default class App extends React.Component<AppProps, AppState> {
     // eslint-disable-next-line no-undef
     var current = this;
     const configuration = new Configuration({
-      apiKey: "your-api-key",
+      apiKey: "***REMOVED***",
     });
     const openai = new OpenAIApi(configuration);
     current.setState({ isLoading: true });
-    const response = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: "Turn the following text into a professional business mail: " + this.state.startText,
-      temperature: 0.7,
-      max_tokens: 300,
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant that can help users to create professional business content.",
+        },
+        { role: "user", content: "Turn the following text into a professional business mail: " + this.state.startText },
+      ],
     });
     current.setState({ isLoading: false });
-    current.setState({ generatedText: response.data.choices[0].text });
+    current.setState({ generatedText: response.data.choices[0].message.content });
   };
 
   insertIntoMail = () => {
