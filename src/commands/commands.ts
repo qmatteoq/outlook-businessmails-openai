@@ -30,14 +30,22 @@ function getSelectedText(): Promise<any> {
           apiKey: "your-api-key",
         });
         const openai = new OpenAIApi(configuration);
-        const response = await openai.createCompletion({
-          model: "text-davinci-003",
-          prompt: "Turn the following text into a professional business mail: " + asyncResult.value,
-          temperature: 0.7,
-          max_tokens: 300,
+        const response = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "system",
+              content:
+                "You are a helpful assistant that can help users to better manage emails. The following prompt contains the whole mail thread. ",
+            },
+            {
+              role: "user",
+              content: "Summarize the following mail thread and extract the key points: " + asyncResult.value,
+            },
+          ],
         });
 
-        resolve(response.data.choices[0].text);
+        resolve(response.data.choices[0].message.content);
       });
     } catch (error) {
       reject(error);
