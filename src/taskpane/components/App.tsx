@@ -67,7 +67,7 @@ export default class App extends React.Component<AppProps, AppState> {
     // eslint-disable-next-line no-undef
     var current = this;
     const configuration = new Configuration({
-      apiKey: "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",
+      apiKey: "your-api-key",
     });
     const openai = new OpenAIApi(configuration);
     current.setState({ isLoading: true });
