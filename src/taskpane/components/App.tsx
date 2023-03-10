@@ -34,7 +34,10 @@ export default class App extends React.Component<AppProps, AppState> {
 
     const apiKey = "your-api-key";
     const endpoint = "your-url";
-    const prompt = "Turn the following text into a professional business mail: " + this.state.startText;
+    const prompt =
+      "<|im_start|>system\nThe system is an AI assistant that helps people to write professional business mails.\n<|im_end|>\n<|im_start|>user\nTurn the following text into a professional business mail: " +
+      this.state.startText +
+      "\n<|im_end|>\n<|im_start|>assistant";
     const deploymentName = "your-deployment-name";
 
     const url = endpoint + "openai/deployments/" + deploymentName + "/completions?api-version=2022-12-01";
