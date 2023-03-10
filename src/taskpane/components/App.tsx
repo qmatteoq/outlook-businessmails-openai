@@ -34,7 +34,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
     const apiKey = "5X5l_tzKawUtPkD7MuK-Mw-qW0r6aQdR6okgQWi0NOnLAzFuGzrtbA==";
     const endpoint = "https://openaibusinessgeneratorfunction.azurewebsites.net/";
-    const userPrompt = "Turn the following text into a professional business mail: " + this.state.startText;
+    const userPrompt = this.state.startText;
 
     const url = endpoint + "api/AzureOpenAiEndpoint?code=" + apiKey;
 
