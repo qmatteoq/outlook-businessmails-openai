@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
   <Id>6c5ed5fb-1ae7-489e-b1b8-705d9bdfd92e</Id>
-  <Version>1.5.0.0</Version>
+  <Version>1.0.0.0</Version>
   <ProviderName>Contoso</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Outlook AI Assistant"/>
+  <DisplayName DefaultValue="Business mail AI Generator"/>
   <Description DefaultValue="A tool to generate Business mails from a simple sentence."/>
-  <IconUrl DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/assets/icon-64.png"/>
-  <HighResolutionIconUrl DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/assets/icon-128.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
   <SupportUrl DefaultValue="https://www.contoso.com/help"/>
   <AppDomains>
     <AppDomain>https://www.contoso.com</AppDomain>
@@ -23,7 +23,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/taskpane.html"/>
+        <SourceLocation DefaultValue="https://localhost:3000/taskpane.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -45,9 +45,9 @@
           <FunctionFile resid="Commands.Url"/>
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="AI.msgComposeGroup">
-                <Label resid="GroupLabelCompose"/>
-                <Control xsi:type="Button" id="msgComposeOpenPaneButton">
+              <Group id="msgReadGroup">
+                <Label resid="GroupLabel"/>
+                <Control xsi:type="Button" id="msgReadOpenPaneButton">
                   <Label resid="TaskpaneButton.Label"/>
                   <Supertip>
                     <Title resid="TaskpaneButton.Label"/>
@@ -59,7 +59,7 @@
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="Taskpane.ComposeUrl"/>
+                    <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
                 <Control xsi:type="Button" id="ActionButton">
@@ -79,52 +79,27 @@
                 </Control>
               </Group>
             </OfficeTab>
-          </ExtensionPoint>     
-          <ExtensionPoint xsi:type="MessageReadCommandSurface">
-            <OfficeTab id="TabDefault">
-              <Group id="AI.msgReadGroup">
-                <Label resid="GroupLabelRead"/>
-                <Control xsi:type="Button" id="msgReadOpenPaneButton">
-                  <Label resid="TaskpaneButton.Label"/>
-                  <Supertip>
-                    <Title resid="TaskpaneButton.Label"/>
-                    <Description resid="TaskpaneButton.Tooltip"/>
-                  </Supertip>
-                  <Icon>
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                    <SourceLocation resid="Taskpane.SummaryUrl"/>
-                  </Action>
-                </Control>               
-              </Group>
-            </OfficeTab>
-          </ExtensionPoint> 
+          </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/assets/icon-80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/commands.html"/>
-        <bt:Url id="Taskpane.ComposeUrl" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/taskpane.html?action=compose"/>
-        <bt:Url id="Taskpane.SummaryUrl" DefaultValue="https://outlookaigenerator.z6.web.core.windows.net/taskpane.html?action=summary"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://localhost:3000/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabelCompose" DefaultValue="Outlook AI Assistant"/>
-        <bt:String id="GroupLabelRead" DefaultValue="Outlook AI Assistant"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="AI Assistant"/>
+        <bt:String id="GroupLabel" DefaultValue="AI Generator Add-in"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Business mail AI generator"/>
         <bt:String id="ActionButton.Label" DefaultValue="Generate business mail"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens a pane that can help you to turn a sentence into a professional business mail."/>
-        <bt:String id="ActionButton.Tooltip" DefaultValue="Perform an action when clicked."/>
         <bt:String id="ActionButton.Tooltip" DefaultValue="Generate a business mail starting from the selected text."/>
       </bt:LongStrings>
     </Resources>
