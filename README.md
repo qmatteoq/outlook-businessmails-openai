@@ -17,6 +17,8 @@ This project is a companion of the following articles, which explains how this a
 
 ## How to use
 
+**Please note**: make sure to read [the companion blog post](https://techcommunity.microsoft.com/t5/modern-work-app-consult-blog/bringing-openai-into-an-outlook-add-in-a-business-mail-generator/ba-p/3743099) to understand all the requirements.
+
 - Clone the repository on your machine
 - Open the solution with Visual Studio Code.
 - Make sure to replace the existing placeholders with your information:
