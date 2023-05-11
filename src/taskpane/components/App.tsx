@@ -140,9 +140,81 @@ export default class App extends React.Component<AppProps, AppState> {
     });
   }
 
+  ProgressSection = () => {
+    if (this.state.isLoading) {
+      return <Progress title="Loading..." message="The AI is working..." />;
+    } else {
+      return <> </>;
+    }
+  };
+
+  BusinessMailSection = () => {
+    if (this.state.isGenerateBusinessMailActive) {
+      return (
+        <>
+          <p>Briefly describe what you want to communicate in the mail:</p>
+          <textarea
+            className="ms-welcome"
+            onChange={(e) => this.setState({ startText: e.target.value })}
+            rows={5}
+            cols={40}
+          />
+          <p>
+            <DefaultButton
+              className="ms-welcome__action"
+              iconProps={{ iconName: "ChevronRight" }}
+              onClick={this.generateText}
+            >
+              Generate text
+            </DefaultButton>
+          </p>
+          <this.ProgressSection />
+          <textarea
+            className="ms-welcome"
+            defaultValue={this.state.generatedText}
+            onChange={(e) => this.setState({ finalMailText: e.target.value })}
+            rows={15}
+            cols={40}
+          />
+          <p>
+            <DefaultButton
+              className="ms-welcome__action"
+              iconProps={{ iconName: "ChevronRight" }}
+              onClick={this.insertIntoMail}
+            >
+              Insert into mail
+            </DefaultButton>
+          </p>
+        </>
+      );
+    } else {
+      return <div> </div>;
+    }
+  };
+
+  SummarizeMailSection = () => {
+    if (this.state.isSummarizeMailActive) {
+      return (
+        <>
+          <p>Summarize mail</p>
+          <DefaultButton
+            className="ms-welcome__action"
+            iconProps={{ iconName: "ChevronRight" }}
+            onClick={this.onSummarize}
+          >
+            Summarize mail
+          </DefaultButton>
+          <this.ProgressSection />
+          <textarea className="ms-welcome" defaultValue={this.state.summary} rows={15} cols={40} />
+        </>
+      );
+    } else {
+      return <div> </div>;
+    }
+  };
+
   render() {
     const { title, isOfficeInitialized } = this.props;
-    const isLoading = this.state.isLoading;
 
     if (!isOfficeInitialized) {
       return (
@@ -153,83 +225,6 @@ export default class App extends React.Component<AppProps, AppState> {
         />
       );
     }
-
-    const ProgressSection = () => {
-      if (isLoading) {
-        return <Progress title="Loading..." message="The AI is working..." />;
-      } else {
-        return <div> </div>;
-      }
-    };
-
-    const BusinessMailSection = () => {
-      if (this.state.isGenerateBusinessMailActive) {
-        return (
-          <>
-            <p>Briefly describe what you want to communicate in the mail:</p>
-            <textarea
-              className="ms-welcome"
-              onChange={(e) => this.setState({ startText: e.target.value })}
-              rows={5}
-              cols={40}
-            />
-            <p>
-              <DefaultButton
-                className="ms-welcome__action"
-                iconProps={{ iconName: "ChevronRight" }}
-                onClick={this.generateText}
-              >
-                Generate text
-              </DefaultButton>
-            </p>
-            <p>
-              <ProgressSection />
-            </p>
-            <textarea
-              className="ms-welcome"
-              defaultValue={this.state.generatedText}
-              onChange={(e) => this.setState({ finalMailText: e.target.value })}
-              rows={15}
-              cols={40}
-            />
-            <p>
-              <DefaultButton
-                className="ms-welcome__action"
-                iconProps={{ iconName: "ChevronRight" }}
-                onClick={this.insertIntoMail}
-              >
-                Insert into mail
-              </DefaultButton>
-            </p>
-          </>
-        );
-      } else {
-        return <div> </div>;
-      }
-    };
-
-    const SummarizeMailSection = () => {
-      if (this.state.isSummarizeMailActive) {
-        return (
-          <>
-            <p>Summarize mail</p>
-            <DefaultButton
-              className="ms-welcome__action"
-              iconProps={{ iconName: "ChevronRight" }}
-              onClick={this.onSummarize}
-            >
-              Summarize mail
-            </DefaultButton>
-            <p>
-              <ProgressSection />
-            </p>
-            <textarea className="ms-welcome" defaultValue={this.state.summary} rows={15} cols={40} />
-          </>
-        );
-      } else {
-        return <div> </div>;
-      }
-    };
 
     return (
       <div className="ms-welcome">
@@ -260,10 +255,10 @@ export default class App extends React.Component<AppProps, AppState> {
             </DefaultButton>
           </p>
           <div>
-            <BusinessMailSection />
+            <this.BusinessMailSection />
           </div>
           <div>
-            <SummarizeMailSection />
+            <this.SummarizeMailSection />
           </div>
         </main>
       </div>
